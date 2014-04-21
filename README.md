@@ -1,4 +1,4 @@
 BLE-Lock
 ========
 
-Bachelorarbeit von Moritz
+Application for Moritz Hanel's Bachelor's thesis.
