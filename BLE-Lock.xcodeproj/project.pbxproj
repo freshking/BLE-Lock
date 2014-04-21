@@ -24,6 +24,10 @@
 		408CA30A19057BC800E1B7FE /* RfduinoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 408CA30719057BC800E1B7FE /* RfduinoManager.m */; };
 		408CA30E1905822A00E1B7FE /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 408CA30D1905822A00E1B7FE /* AudioToolbox.framework */; };
 		408CA3141905846A00E1B7FE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 408CA3131905846A00E1B7FE /* AVFoundation.framework */; };
+		408CA32319058D7500E1B7FE /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 408CA31F19058D7500E1B7FE /* Icon-Small@2x.png */; };
+		408CA32419058D7500E1B7FE /* Icon-80.png in Resources */ = {isa = PBXBuildFile; fileRef = 408CA32019058D7500E1B7FE /* Icon-80.png */; };
+		408CA32519058D7500E1B7FE /* Icon-120.png in Resources */ = {isa = PBXBuildFile; fileRef = 408CA32119058D7500E1B7FE /* Icon-120.png */; };
+		408CA32619058D7500E1B7FE /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 408CA32219058D7500E1B7FE /* Icon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +67,10 @@
 		408CA30819057BC800E1B7FE /* RFduinoManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFduinoManagerDelegate.h; sourceTree = "<group>"; };
 		408CA30D1905822A00E1B7FE /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		408CA3131905846A00E1B7FE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		408CA31F19058D7500E1B7FE /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
+		408CA32019058D7500E1B7FE /* Icon-80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-80.png"; sourceTree = "<group>"; };
+		408CA32119058D7500E1B7FE /* Icon-120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-120.png"; sourceTree = "<group>"; };
+		408CA32219058D7500E1B7FE /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +148,10 @@
 		408CA2D419057B2D00E1B7FE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				408CA31F19058D7500E1B7FE /* Icon-Small@2x.png */,
+				408CA32019058D7500E1B7FE /* Icon-80.png */,
+				408CA32119058D7500E1B7FE /* Icon-120.png */,
+				408CA32219058D7500E1B7FE /* Icon.png */,
 				408CA2D519057B2D00E1B7FE /* BLE-Lock-Info.plist */,
 				408CA2D619057B2D00E1B7FE /* InfoPlist.strings */,
 				408CA2D919057B2D00E1B7FE /* main.m */,
@@ -255,7 +267,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				408CA32619058D7500E1B7FE /* Icon.png in Resources */,
+				408CA32419058D7500E1B7FE /* Icon-80.png in Resources */,
+				408CA32319058D7500E1B7FE /* Icon-Small@2x.png in Resources */,
 				408CA2E619057B2D00E1B7FE /* Images.xcassets in Resources */,
+				408CA32519058D7500E1B7FE /* Icon-120.png in Resources */,
 				408CA2D819057B2D00E1B7FE /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -399,7 +415,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BLE-Lock/BLE-Lock-Prefix.pch";
 				INFOPLIST_FILE = "BLE-Lock/BLE-Lock-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -412,7 +430,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BLE-Lock/BLE-Lock-Prefix.pch";
 				INFOPLIST_FILE = "BLE-Lock/BLE-Lock-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
