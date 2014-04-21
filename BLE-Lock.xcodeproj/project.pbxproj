@@ -24,10 +24,22 @@
 		408CA30A19057BC800E1B7FE /* RfduinoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 408CA30719057BC800E1B7FE /* RfduinoManager.m */; };
 		408CA30E1905822A00E1B7FE /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 408CA30D1905822A00E1B7FE /* AudioToolbox.framework */; };
 		408CA3141905846A00E1B7FE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 408CA3131905846A00E1B7FE /* AVFoundation.framework */; };
-		408CA32319058D7500E1B7FE /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 408CA31F19058D7500E1B7FE /* Icon-Small@2x.png */; };
-		408CA32419058D7500E1B7FE /* Icon-80.png in Resources */ = {isa = PBXBuildFile; fileRef = 408CA32019058D7500E1B7FE /* Icon-80.png */; };
-		408CA32519058D7500E1B7FE /* Icon-120.png in Resources */ = {isa = PBXBuildFile; fileRef = 408CA32119058D7500E1B7FE /* Icon-120.png */; };
-		408CA32619058D7500E1B7FE /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 408CA32219058D7500E1B7FE /* Icon.png */; };
+		408CA3371905978700E1B7FE /* Icon-120.png in Resources */ = {isa = PBXBuildFile; fileRef = 408CA3281905978700E1B7FE /* Icon-120.png */; };
+		408CA3381905978700E1B7FE /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 408CA3291905978700E1B7FE /* Icon-72.png */; };
+		408CA3391905978700E1B7FE /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 408CA32A1905978700E1B7FE /* Icon-72@2x.png */; };
+		408CA33A1905978700E1B7FE /* Icon-76.png in Resources */ = {isa = PBXBuildFile; fileRef = 408CA32B1905978700E1B7FE /* Icon-76.png */; };
+		408CA33B1905978700E1B7FE /* Icon-76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 408CA32C1905978700E1B7FE /* Icon-76@2x.png */; };
+		408CA33C1905978700E1B7FE /* Icon-iPad-Spotlight-iOS7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 408CA32D1905978700E1B7FE /* Icon-iPad-Spotlight-iOS7@2x.png */; };
+		408CA33D1905978700E1B7FE /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 408CA32E1905978700E1B7FE /* Icon-Small-50.png */; };
+		408CA33E1905978700E1B7FE /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 408CA32F1905978700E1B7FE /* Icon-Small.png */; };
+		408CA33F1905978700E1B7FE /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 408CA3301905978700E1B7FE /* Icon-Small@2x.png */; };
+		408CA3401905978700E1B7FE /* Icon-Spotlight-iOS7.png in Resources */ = {isa = PBXBuildFile; fileRef = 408CA3311905978700E1B7FE /* Icon-Spotlight-iOS7.png */; };
+		408CA3411905978700E1B7FE /* Icon-Spotlight-iOS7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 408CA3321905978700E1B7FE /* Icon-Spotlight-iOS7@2x.png */; };
+		408CA3421905978700E1B7FE /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 408CA3331905978700E1B7FE /* Icon.png */; };
+		408CA3431905978700E1B7FE /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 408CA3341905978700E1B7FE /* Icon@2x.png */; };
+		408CA3441905978700E1B7FE /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 408CA3351905978700E1B7FE /* iTunesArtwork */; };
+		408CA3451905978700E1B7FE /* iTunesArtwork@2x in Resources */ = {isa = PBXBuildFile; fileRef = 408CA3361905978700E1B7FE /* iTunesArtwork@2x */; };
+		408CA347190597E800E1B7FE /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 408CA346190597E800E1B7FE /* CoreBluetooth.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,10 +79,22 @@
 		408CA30819057BC800E1B7FE /* RFduinoManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFduinoManagerDelegate.h; sourceTree = "<group>"; };
 		408CA30D1905822A00E1B7FE /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		408CA3131905846A00E1B7FE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		408CA31F19058D7500E1B7FE /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
-		408CA32019058D7500E1B7FE /* Icon-80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-80.png"; sourceTree = "<group>"; };
-		408CA32119058D7500E1B7FE /* Icon-120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-120.png"; sourceTree = "<group>"; };
-		408CA32219058D7500E1B7FE /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		408CA3281905978700E1B7FE /* Icon-120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-120.png"; sourceTree = "<group>"; };
+		408CA3291905978700E1B7FE /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		408CA32A1905978700E1B7FE /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
+		408CA32B1905978700E1B7FE /* Icon-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-76.png"; sourceTree = "<group>"; };
+		408CA32C1905978700E1B7FE /* Icon-76@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-76@2x.png"; sourceTree = "<group>"; };
+		408CA32D1905978700E1B7FE /* Icon-iPad-Spotlight-iOS7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad-Spotlight-iOS7@2x.png"; sourceTree = "<group>"; };
+		408CA32E1905978700E1B7FE /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
+		408CA32F1905978700E1B7FE /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
+		408CA3301905978700E1B7FE /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
+		408CA3311905978700E1B7FE /* Icon-Spotlight-iOS7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Spotlight-iOS7.png"; sourceTree = "<group>"; };
+		408CA3321905978700E1B7FE /* Icon-Spotlight-iOS7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Spotlight-iOS7@2x.png"; sourceTree = "<group>"; };
+		408CA3331905978700E1B7FE /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		408CA3341905978700E1B7FE /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		408CA3351905978700E1B7FE /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
+		408CA3361905978700E1B7FE /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = file; path = "iTunesArtwork@2x"; sourceTree = "<group>"; };
+		408CA346190597E800E1B7FE /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +102,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				408CA347190597E800E1B7FE /* CoreBluetooth.framework in Frameworks */,
 				408CA3141905846A00E1B7FE /* AVFoundation.framework in Frameworks */,
 				408CA30E1905822A00E1B7FE /* AudioToolbox.framework in Frameworks */,
 				408CA2D019057B2D00E1B7FE /* CoreGraphics.framework in Frameworks */,
@@ -121,6 +146,7 @@
 		408CA2CC19057B2D00E1B7FE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				408CA346190597E800E1B7FE /* CoreBluetooth.framework */,
 				408CA3131905846A00E1B7FE /* AVFoundation.framework */,
 				408CA30D1905822A00E1B7FE /* AudioToolbox.framework */,
 				408CA2CD19057B2D00E1B7FE /* Foundation.framework */,
@@ -148,10 +174,7 @@
 		408CA2D419057B2D00E1B7FE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				408CA31F19058D7500E1B7FE /* Icon-Small@2x.png */,
-				408CA32019058D7500E1B7FE /* Icon-80.png */,
-				408CA32119058D7500E1B7FE /* Icon-120.png */,
-				408CA32219058D7500E1B7FE /* Icon.png */,
+				408CA3271905978700E1B7FE /* Icons */,
 				408CA2D519057B2D00E1B7FE /* BLE-Lock-Info.plist */,
 				408CA2D619057B2D00E1B7FE /* InfoPlist.strings */,
 				408CA2D919057B2D00E1B7FE /* main.m */,
@@ -189,6 +212,28 @@
 				408CA30819057BC800E1B7FE /* RFduinoManagerDelegate.h */,
 			);
 			path = RFduino;
+			sourceTree = "<group>";
+		};
+		408CA3271905978700E1B7FE /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				408CA3281905978700E1B7FE /* Icon-120.png */,
+				408CA3291905978700E1B7FE /* Icon-72.png */,
+				408CA32A1905978700E1B7FE /* Icon-72@2x.png */,
+				408CA32B1905978700E1B7FE /* Icon-76.png */,
+				408CA32C1905978700E1B7FE /* Icon-76@2x.png */,
+				408CA32D1905978700E1B7FE /* Icon-iPad-Spotlight-iOS7@2x.png */,
+				408CA32E1905978700E1B7FE /* Icon-Small-50.png */,
+				408CA32F1905978700E1B7FE /* Icon-Small.png */,
+				408CA3301905978700E1B7FE /* Icon-Small@2x.png */,
+				408CA3311905978700E1B7FE /* Icon-Spotlight-iOS7.png */,
+				408CA3321905978700E1B7FE /* Icon-Spotlight-iOS7@2x.png */,
+				408CA3331905978700E1B7FE /* Icon.png */,
+				408CA3341905978700E1B7FE /* Icon@2x.png */,
+				408CA3351905978700E1B7FE /* iTunesArtwork */,
+				408CA3361905978700E1B7FE /* iTunesArtwork@2x */,
+			);
+			path = Icons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -267,12 +312,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				408CA32619058D7500E1B7FE /* Icon.png in Resources */,
-				408CA32419058D7500E1B7FE /* Icon-80.png in Resources */,
-				408CA32319058D7500E1B7FE /* Icon-Small@2x.png in Resources */,
 				408CA2E619057B2D00E1B7FE /* Images.xcassets in Resources */,
-				408CA32519058D7500E1B7FE /* Icon-120.png in Resources */,
+				408CA3381905978700E1B7FE /* Icon-72.png in Resources */,
+				408CA33C1905978700E1B7FE /* Icon-iPad-Spotlight-iOS7@2x.png in Resources */,
+				408CA33D1905978700E1B7FE /* Icon-Small-50.png in Resources */,
+				408CA3431905978700E1B7FE /* Icon@2x.png in Resources */,
+				408CA3391905978700E1B7FE /* Icon-72@2x.png in Resources */,
+				408CA3451905978700E1B7FE /* iTunesArtwork@2x in Resources */,
+				408CA3371905978700E1B7FE /* Icon-120.png in Resources */,
+				408CA33B1905978700E1B7FE /* Icon-76@2x.png in Resources */,
 				408CA2D819057B2D00E1B7FE /* InfoPlist.strings in Resources */,
+				408CA33E1905978700E1B7FE /* Icon-Small.png in Resources */,
+				408CA3401905978700E1B7FE /* Icon-Spotlight-iOS7.png in Resources */,
+				408CA33A1905978700E1B7FE /* Icon-76.png in Resources */,
+				408CA33F1905978700E1B7FE /* Icon-Small@2x.png in Resources */,
+				408CA3421905978700E1B7FE /* Icon.png in Resources */,
+				408CA3411905978700E1B7FE /* Icon-Spotlight-iOS7@2x.png in Resources */,
+				408CA3441905978700E1B7FE /* iTunesArtwork in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

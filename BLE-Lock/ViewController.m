@@ -37,6 +37,7 @@
 	// Do any additional setup after loading the view, typically from a nib.
     
     rfduinoManager.delegate = self;
+    rfduinoManager
     
     _progress = [[UIProgressView alloc]initWithProgressViewStyle:UIProgressViewStyleBar];
     _progress.frame = CGRectMake(0.0, 0.0, 150.0, 20.0);
@@ -55,7 +56,8 @@
     [_indicator startAnimating];
     
     
-    
+    //AudioServicesPlaySystemSound(1007); // sms received
+    //AudioServicesPlaySystemSound(1304); // alarm
 }
 
 - (void)didReceiveMemoryWarning
@@ -87,6 +89,7 @@
     NSLog(@"didConnectRFduino");
     
     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+    //AudioServicesPlaySystemSound(1100);
     [self performSelector:@selector(speechOutput:) withObject:@"Device Connected" afterDelay:0.5];
     
     [_indicator stopAnimating];
@@ -105,6 +108,7 @@
     NSLog(@"didDisconnectRFduino");
     
     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+    //AudioServicesPlaySystemSound(1100);
     [self performSelector:@selector(speechOutput:) withObject:@"Device Disconnected" afterDelay:0.5];
     
     _rfduino = nil;
