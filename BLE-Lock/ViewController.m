@@ -37,7 +37,6 @@
 	// Do any additional setup after loading the view, typically from a nib.
     
     rfduinoManager.delegate = self;
-    rfduinoManager
     
     _progress = [[UIProgressView alloc]initWithProgressViewStyle:UIProgressViewStyleBar];
     _progress.frame = CGRectMake(0.0, 0.0, 150.0, 20.0);
