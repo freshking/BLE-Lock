@@ -7,7 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RFduinoManagerDelegate.h"
 
-@interface ViewController : UIViewController
+@class RFduinoManager;
+@class RFduino;
+
+@interface ViewController : UIViewController <RFduinoManagerDelegate>
+{
+    RFduinoManager *rfduinoManager;
+}
+
+@property (nonatomic, strong) RFduino *rfduino;
 
 @end
