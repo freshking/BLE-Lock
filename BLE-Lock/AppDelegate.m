@@ -10,6 +10,8 @@
 #import "ViewController.h"
 #import "RFduinoManager.h"
 
+#define SWITCH_STATE @"com.Bastian-Kohlbauer.BLE-Lock.switchState"
+
 @interface AppDelegate()
 {
     RFduinoManager *rfduinoManager;
@@ -28,8 +30,9 @@
     rfduinoManager = RFduinoManager.sharedRFduinoManager;
     
     ViewController *viewController = [[ViewController alloc] init];
-    [self.window setRootViewController:viewController];
-    
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    [self.window setRootViewController:navController];
+        
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
@@ -41,12 +44,15 @@
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
     
+    /*
     wasScanning = false;
     
-    if (rfduinoManager.isScanning) {
+    if (rfduinoManager.isScanning)
+    {
         wasScanning = true;
         [rfduinoManager stopScan];
     }
+     */
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -64,10 +70,13 @@
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     
-    if (wasScanning) {
+    /*
+    if (wasScanning && [[[NSUserDefaults standardUserDefaults] objectForKey:SWITCH_STATE] boolValue] == YES)
+    {
         [rfduinoManager startScan];
         wasScanning = false;
     }
+     */
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

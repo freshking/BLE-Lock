@@ -552,6 +552,7 @@
 				408CA2FE19057B2E00E1B7FE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		408CA2FF19057B2E00E1B7FE /* Build configuration list for PBXNativeTarget "BLE-LockTests" */ = {
 			isa = XCConfigurationList;
@@ -560,6 +561,7 @@
 				408CA30119057B2E00E1B7FE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
