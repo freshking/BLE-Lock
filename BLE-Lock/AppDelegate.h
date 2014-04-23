@@ -7,9 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RFduinoManagerDelegate.h"
+#import "ViewController.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@class RFduinoManager;
+@class RFduino;
+
+@interface AppDelegate : UIResponder <UIApplicationDelegate,RFduinoManagerDelegate>
+{
+    //RFduinoManager *rfduinoManager;
+    //bool wasScanning;
+}
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) RFduinoManager *rfduinoManager;
+@property (strong, nonatomic) ViewController *viewController;
 
 @end

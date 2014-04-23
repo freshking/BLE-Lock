@@ -190,6 +190,7 @@ static CBUUID *service_uuid;
         }
     };
     
+    /*
     if (error.code) {
         cancelBlock = block;
 
@@ -207,7 +208,8 @@ static CBUUID *service_uuid;
     }
     else
         block();
-    
+*/
+    block();
     if (peripheral) {
         [peripheral setDelegate:nil];
         peripheral = nil;
@@ -304,10 +306,12 @@ static CBUUID *service_uuid;
 {
     NSLog(@"central manager state = %d", [central state]);
     
+    /*
     bool success = [self isBluetoothLESupported];
     if (success) {
         [self startScan];
     }
+     */
 }
 
 #pragma mark - UIAlertViewDelegate methods

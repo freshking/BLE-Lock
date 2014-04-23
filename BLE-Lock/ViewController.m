@@ -6,30 +6,30 @@
 //  Copyright (c) 2014 Bastian Kohlbauer. All rights reserved.
 //
 
-#import <AudioToolbox/AudioServices.h>
 #import <AVFoundation/AVFoundation.h>
+#import "AppDelegate.h"
 #import "ViewController.h"
+
+
 #import "RFduinoManager.h"
 #import "RFduino.h"
 
-#define UDID @"4CCC5638-0957-15E7-1EB4-96F0D9C61AB3"
+#define kDelegate ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 #define SWITCH_STATE @"com.Bastian-Kohlbauer.BLE-Lock.switchState"
 
 @interface ViewController ()
-@property (nonatomic, strong) UIActivityIndicatorView *indicator;
-@property (nonatomic, strong) UIProgressView *progress;
-@property (nonatomic, strong) UISwitch *switchSelector;
-@property (nonatomic, strong) UILabel *statsLabel;
 @end
 
+
 @implementation ViewController
+
+@synthesize newrfduino;
 
 - (id)init
 {
     self = [super init];
     if (self)
     {
-        rfduinoManager = [RFduinoManager sharedRFduinoManager];
     }
     return self;
 }
@@ -41,15 +41,26 @@
     
     [self setTitle:@"BLE-Lock"];
     [self.view setBackgroundColor:[UIColor whiteColor]];
-    
-    rfduinoManager.delegate = self;
 
     if (![[NSUserDefaults standardUserDefaults] objectForKey:SWITCH_STATE])
     {
         [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:SWITCH_STATE];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        [rfduinoManager startScan];
     }
+    
+    _reset = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_reset setFrame:CGRectMake((self.view.frame.size.width/2)-60, (self.view.frame.size.height-60), 120, 40)];
+    [_reset setTitle:@"Lock / Reset" forState:UIControlStateNormal];
+    [_reset setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [_reset setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+    [_reset.titleLabel setAdjustsFontSizeToFitWidth:YES];
+    [_reset.layer setMasksToBounds:YES];
+    [_reset.layer setCornerRadius:10.0f];
+    [_reset.layer setBorderWidth:1.0f];
+    [_reset.layer setBorderColor:[UIColor blackColor].CGColor];
+    [_reset addTarget:self action:@selector(buttonTouchDown:) forControlEvents:UIControlEventTouchDown];
+    [_reset addTarget:self action:@selector(buttonTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_reset];
 
     _switchSelector = [[UISwitch alloc]initWithFrame:CGRectMake(self.view.frame.size.width- 65, 8, 60, 27)];
     [_switchSelector addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
@@ -62,12 +73,12 @@
     _progress.progressTintColor = [UIColor colorWithRed:0.0 green:0.5 blue:0.0 alpha:1.0];
     [self.view addSubview:_progress];
     
-    _indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    _indicator.center = self.view.center;
-    [_indicator setHidesWhenStopped:YES];
-    [self.view addSubview:_indicator];
+    _radar = [[BKRadar alloc]initWithFrame:CGRectMake(0, 0, 250, 250) radarStyle:RadarStyleCircle];
+    [_radar setCenter:self.view.center];
+    [self.view addSubview:_radar];
     
     _statsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 80)];
+    [_statsLabel setTextAlignment:NSTextAlignmentCenter];
     [_statsLabel setNumberOfLines:4];
     [_statsLabel setAdjustsFontSizeToFitWidth:YES];
     [_statsLabel setCenter:self.view.center];
@@ -83,6 +94,14 @@
     //AudioServicesPlaySystemSound(1304); // alarm
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    
+    
+    //[radar startAnimating];
+    
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -93,101 +112,97 @@
 {
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:_switchSelector.on] forKey:SWITCH_STATE];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    
+
     if (_switchSelector.on)
     {
-        if (!rfduinoManager.isScanning)
-        {
-            [rfduinoManager startScan];
-        }
+        [kDelegate.rfduinoManager startScan];
         
-        [_indicator startAnimating];
+        [_radar startAnimating];
         [_statsLabel setHidden:YES];
         [_progress setHidden:NO];
         [_progress setProgress:0.0f];
-        [_statsLabel setTextAlignment:NSTextAlignmentLeft];
+        [_reset setHidden:NO];
+        return;
     }
     else
     {
-        if (rfduinoManager.isScanning)
-        {
-            [rfduinoManager stopScan];
-        }
+        [kDelegate.rfduinoManager stopScan];
+        [newrfduino disconnect];
         
-        [_indicator stopAnimating];
+        [_radar stopAnimating];
         [_statsLabel setHidden:NO];
         [_progress setHidden:YES];
-        [_statsLabel setTextAlignment:NSTextAlignmentCenter];
-        [_statsLabel setText:@"Not scanning."];
+        [_reset setHidden:YES];
+        [_statsLabel setText:@"Not Scanning"];
+        return;
     }
     
 }
 
-#pragma mark - RfduinoDiscoveryDelegate methods
-
-- (void)didDiscoverRFduino:(RFduino *)rfduino
+- (void)sendByte:(uint8_t)byte
 {
-    NSLog(@"didDiscoverRFduino");
+    uint8_t tx[1] = { byte };
+    NSData *data = [NSData dataWithBytes:(void*)&tx length:1];
+    [newrfduino send:data];
+}
+
+- (void)buttonTouchDown:(id)sender
+{
+    NSLog(@"TouchDown");
+    [self sendByte:1];
+}
+
+- (void)buttonTouchUpInside:(id)sender
+{
+    NSLog(@"TouchUpInside");
+    [self sendByte:0];
+}
+
+- (void)didReceive:(NSData *)data
+{
+    NSLog(@"RecievedData");
     
-    if (!rfduino.outOfRange && [rfduino.UUID isEqualToString:UDID]) {
-        _rfduino = rfduino;
-        [rfduinoManager connectRFduino:_rfduino];
+    const uint8_t *value = [data bytes];
+    // int len = [data length];
+    
+    NSLog(@"value = %x", value[0]);
+    
+    if (value[0] == 1)
+    {
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        [self performSelector:@selector(speechOutput:) withObject:@"Alarm" afterDelay:0.0];
     }
+    
+    
+    //newrfduino = [kDelegate.rfduinoManager.rfduinos objectAtIndex:0];
+    [self calculateSignalStrength:newrfduino];
+ 
+    //if (value[0])
+    //    [image1 setImage:on];
+    //else
+    //    [image1 setImage:off];
+    //
 }
 
-- (void)didUpdateDiscoveredRFduino:(RFduino *)rfduino
-{
-    NSLog(@"didUpdateRFduino");
-    [self calculateSignalStrength];
-}
-
-- (void)didConnectRFduino:(RFduino *)rfduino
-{
-    NSLog(@"didConnectRFduino");
-    
-    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-    //AudioServicesPlaySystemSound(1100);
-    [self performSelector:@selector(speechOutput:) withObject:@"Device Connected" afterDelay:0.5];
-    
-    [_indicator stopAnimating];
-    [_progress setHidden:_indicator.isAnimating];
-    [_statsLabel setHidden:_indicator.isAnimating];
-    [rfduinoManager stopScan];
-    [self calculateSignalStrength];
-}
-
-- (void)didLoadServiceRFduino:(RFduino *)rfduino
-{
-    NSLog(@"didLoadServiceRFduino");
-}
-
-- (void)didDisconnectRFduino:(RFduino *)rfduino
-{
-    NSLog(@"didDisconnectRFduino");
-    
-    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-    //AudioServicesPlaySystemSound(1100);
-    [self performSelector:@selector(speechOutput:) withObject:@"Device Disconnected" afterDelay:0.5];
-    
-    _rfduino = nil;
-    [_indicator startAnimating];
-    [_progress setHidden:_indicator.isAnimating];
-    [_statsLabel setHidden:_indicator.isAnimating];
-    [rfduinoManager startScan];
-}
 
 #pragma mark - Provate Methods
 
-- (void)calculateSignalStrength
+- (void)calculateSignalStrength:(RFduino *)rfduino
 {
-    NSString *text = [[NSString alloc] initWithFormat:@"%@", _rfduino.name];
+    if (!rfduino) return;
     
-    NSString *uuid = _rfduino.UUID;
-    int rssi = _rfduino.advertisementRSSI.intValue;
+    
+
+    
+    NSString *text = [[NSString alloc] initWithFormat:@"%@", rfduino.name];
+    
+    NSString *uuid = rfduino.UUID;
+    int rssi = rfduino.advertisementRSSI.intValue;
+    NSLog(@"rssi: %i",rssi);
     
     NSString *advertising = @"";
-    if (_rfduino.advertisementData) {
-        advertising = [[NSString alloc] initWithData:_rfduino.advertisementData encoding:NSUTF8StringEncoding];
+    if (rfduino.advertisementData) {
+        advertising = [[NSString alloc] initWithData:rfduino.advertisementData encoding:NSUTF8StringEncoding];
     }
     
     
@@ -226,7 +241,7 @@
     [detail appendFormat:@"RSSI: %d dBm", rssi];
     while ([detail length] < 25)
         [detail appendString:@" "];
-    [detail appendFormat:@"Packets: %d\n", _rfduino.advertisementPackets];
+    [detail appendFormat:@"Packets: %d\n", rfduino.advertisementPackets];
     [detail appendFormat:@"Advertising: %@\n", advertising];
     [detail appendFormat:@"%@", uuid];
     [_statsLabel setText:detail];

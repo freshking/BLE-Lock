@@ -6,17 +6,17 @@
 //  Copyright (c) 2014 Bastian Kohlbauer. All rights reserved.
 //
 
+#import <AudioToolbox/AudioServices.h>
 #import "AppDelegate.h"
-#import "ViewController.h"
-#import "RFduinoManager.h"
 
+#import "RFduinoManager.h"
+#import "RFduino.h"
+
+#define UDID @"4CCC5638-0957-15E7-1EB4-96F0D9C61AB3"
 #define SWITCH_STATE @"com.Bastian-Kohlbauer.BLE-Lock.switchState"
 
 @interface AppDelegate()
-{
-    RFduinoManager *rfduinoManager;
-    bool wasScanning;
-}
+
 @end
 
 @implementation AppDelegate
@@ -27,10 +27,11 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    rfduinoManager = RFduinoManager.sharedRFduinoManager;
+    _rfduinoManager = [RFduinoManager sharedRFduinoManager];
+    _rfduinoManager.delegate = self;
     
-    ViewController *viewController = [[ViewController alloc] init];
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    _viewController = [[ViewController alloc] init];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:_viewController];
     [self.window setRootViewController:navController];
         
     self.window.backgroundColor = [UIColor whiteColor];
@@ -82,6 +83,61 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark - RfduinoDiscoveryDelegate methods
+
+- (void)didDiscoverRFduino:(RFduino *)rfduino
+{
+    NSLog(@"didDiscoverRFduino");
+    
+    if (!rfduino.outOfRange && [rfduino.UUID isEqualToString:UDID]) {
+        [_rfduinoManager connectRFduino:rfduino];
+    }
+}
+
+- (void)didUpdateDiscoveredRFduino:(RFduino *)rfduino
+{
+    NSLog(@"didUpdateRFduino");
+    
+}
+
+- (void)didConnectRFduino:(RFduino *)rfduino
+{
+    NSLog(@"didConnectRFduino");
+    
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+    //AudioServicesPlaySystemSound(1100);
+    [_viewController performSelector:@selector(speechOutput:) withObject:@"Device Connected" afterDelay:0.5];
+    
+    _viewController.newrfduino = rfduino;
+    [_viewController.newrfduino setDelegate:_viewController];
+    
+    [_viewController.reset setHidden:NO];
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:SWITCH_STATE] boolValue] == YES) [_viewController.radar stopAnimating];
+    [_viewController.progress setHidden:_viewController.radar.isAnimating];
+    [_viewController.statsLabel setHidden:_viewController.radar.isAnimating];
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:SWITCH_STATE] boolValue] == YES) [_rfduinoManager stopScan];
+}
+
+- (void)didLoadServiceRFduino:(RFduino *)rfduino
+{
+    NSLog(@"didLoadServiceRFduino");
+}
+
+- (void)didDisconnectRFduino:(RFduino *)rfduino
+{
+    NSLog(@"didDisconnectRFduino");
+    
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+    //AudioServicesPlaySystemSound(1100);
+    [_viewController performSelector:@selector(speechOutput:) withObject:@"Device Disconnected" afterDelay:0.5];
+    
+    [_viewController.reset setHidden:YES];
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:SWITCH_STATE] boolValue] == YES)[_viewController.radar startAnimating];
+    [_viewController.progress setHidden:_viewController.radar.isAnimating];
+    [_viewController.statsLabel setHidden:_viewController.radar.isAnimating];
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:SWITCH_STATE] boolValue] == YES) [_rfduinoManager startScan];
 }
 
 @end

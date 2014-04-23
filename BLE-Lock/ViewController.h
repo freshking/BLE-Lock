@@ -7,16 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RFduinoManagerDelegate.h"
 
-@class RFduinoManager;
-@class RFduino;
+#import "BKRadar.h"
+#import "RFduino.h"
 
-@interface ViewController : UIViewController <RFduinoManagerDelegate>
-{
-    RFduinoManager *rfduinoManager;
-}
+@interface ViewController : UIViewController <RFduinoDelegate>
 
-@property (nonatomic, strong) RFduino *rfduino;
+- (void)speechOutput:(NSString*)text;
+
+@property (strong, nonatomic) RFduino *newrfduino;
+@property (nonatomic, strong) BKRadar *radar;
+@property (nonatomic, strong) UIProgressView *progress;
+@property (nonatomic, strong) UISwitch *switchSelector;
+@property (nonatomic, strong) UILabel *statsLabel;
+@property (nonatomic, strong) UIButton *reset;
 
 @end

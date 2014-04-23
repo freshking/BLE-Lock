@@ -28,7 +28,7 @@
 
 @protocol RFduinoDelegate <NSObject>
 
-@optional
+//@optional
 
 - (void)didReceive:(NSData *)data;
 

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		40700B0F1907BDF100213707 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40700B0E1907BDF100213707 /* QuartzCore.framework */; };
+		40715A341906A09700781E15 /* BKRadar.m in Sources */ = {isa = PBXBuildFile; fileRef = 40715A331906A09700781E15 /* BKRadar.m */; };
+		40715A391906A1EF00781E15 /* BKRadarCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 40715A381906A1EF00781E15 /* BKRadarCircle.m */; };
 		408CA2CE19057B2D00E1B7FE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 408CA2CD19057B2D00E1B7FE /* Foundation.framework */; };
 		408CA2D019057B2D00E1B7FE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 408CA2CF19057B2D00E1B7FE /* CoreGraphics.framework */; };
 		408CA2D219057B2D00E1B7FE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 408CA2D119057B2D00E1B7FE /* UIKit.framework */; };
@@ -53,6 +56,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		40700B0E1907BDF100213707 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		40715A321906A09700781E15 /* BKRadar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKRadar.h; sourceTree = "<group>"; };
+		40715A331906A09700781E15 /* BKRadar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKRadar.m; sourceTree = "<group>"; };
+		40715A371906A1EF00781E15 /* BKRadarCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKRadarCircle.h; sourceTree = "<group>"; };
+		40715A381906A1EF00781E15 /* BKRadarCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKRadarCircle.m; sourceTree = "<group>"; };
 		408CA2CA19057B2D00E1B7FE /* BLE-Lock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BLE-Lock.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		408CA2CD19057B2D00E1B7FE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		408CA2CF19057B2D00E1B7FE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -102,6 +110,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40700B0F1907BDF100213707 /* QuartzCore.framework in Frameworks */,
 				408CA347190597E800E1B7FE /* CoreBluetooth.framework in Frameworks */,
 				408CA3141905846A00E1B7FE /* AVFoundation.framework in Frameworks */,
 				408CA30E1905822A00E1B7FE /* AudioToolbox.framework in Frameworks */,
@@ -124,6 +133,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		40715A311906A09700781E15 /* BKRadar */ = {
+			isa = PBXGroup;
+			children = (
+				40715A321906A09700781E15 /* BKRadar.h */,
+				40715A331906A09700781E15 /* BKRadar.m */,
+				40715A371906A1EF00781E15 /* BKRadarCircle.h */,
+				40715A381906A1EF00781E15 /* BKRadarCircle.m */,
+			);
+			path = BKRadar;
+			sourceTree = "<group>";
+		};
 		408CA2C119057B2D00E1B7FE = {
 			isa = PBXGroup;
 			children = (
@@ -146,6 +166,7 @@
 		408CA2CC19057B2D00E1B7FE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				40700B0E1907BDF100213707 /* QuartzCore.framework */,
 				408CA346190597E800E1B7FE /* CoreBluetooth.framework */,
 				408CA3131905846A00E1B7FE /* AVFoundation.framework */,
 				408CA30D1905822A00E1B7FE /* AudioToolbox.framework */,
@@ -164,6 +185,7 @@
 				408CA2DD19057B2D00E1B7FE /* AppDelegate.m */,
 				408CA2E219057B2D00E1B7FE /* ViewController.h */,
 				408CA2E319057B2D00E1B7FE /* ViewController.m */,
+				40715A311906A09700781E15 /* BKRadar */,
 				408CA30219057BC800E1B7FE /* RFduino */,
 				408CA2E519057B2D00E1B7FE /* Images.xcassets */,
 				408CA2D419057B2D00E1B7FE /* Supporting Files */,
@@ -283,6 +305,17 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Bastian Kohlbauer";
 				TargetAttributes = {
+					408CA2C919057B2D00E1B7FE = {
+						DevelopmentTeam = R63H5582LG;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.DataProtection = {
+								enabled = 0;
+							};
+						};
+					};
 					408CA2EA19057B2E00E1B7FE = {
 						TestTargetID = 408CA2C919057B2D00E1B7FE;
 					};
@@ -348,7 +381,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				408CA30A19057BC800E1B7FE /* RfduinoManager.m in Sources */,
+				40715A341906A09700781E15 /* BKRadar.m in Sources */,
 				408CA2E419057B2D00E1B7FE /* ViewController.m in Sources */,
+				40715A391906A1EF00781E15 /* BKRadarCircle.m in Sources */,
 				408CA2DE19057B2D00E1B7FE /* AppDelegate.m in Sources */,
 				408CA2DA19057B2D00E1B7FE /* main.m in Sources */,
 				408CA30919057BC800E1B7FE /* RFduino.m in Sources */,
@@ -468,11 +503,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BLE-Lock/BLE-Lock-Prefix.pch";
 				INFOPLIST_FILE = "BLE-Lock/BLE-Lock-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -483,11 +521,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BLE-Lock/BLE-Lock-Prefix.pch";
 				INFOPLIST_FILE = "BLE-Lock/BLE-Lock-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
