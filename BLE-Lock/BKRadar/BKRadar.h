@@ -17,8 +17,12 @@ typedef enum
 @interface BKRadar : UIView
 
 - (id)initWithFrame:(CGRect)frame radarStyle:(RadarStyle)style;
+- (void)setRadarStyle:(RadarStyle)radarStyle;
 - (void)startAnimating;
 - (void)stopAnimating;
 - (BOOL)isAnimating;
+- (void)setDoubleTapToSwitch:(BOOL)doubleTap;
+
+@property (assign, nonatomic) RadarStyle radarStyle;
 
 @end

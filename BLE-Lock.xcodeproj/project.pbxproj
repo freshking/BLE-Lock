@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		40094A051907EE7F000E1783 /* AngleGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 40094A041907EE7F000E1783 /* AngleGradientLayer.m */; };
+		40094A081907EF85000E1783 /* BKRadarStandard.m in Sources */ = {isa = PBXBuildFile; fileRef = 40094A071907EF85000E1783 /* BKRadarStandard.m */; };
 		40700B0F1907BDF100213707 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40700B0E1907BDF100213707 /* QuartzCore.framework */; };
 		40715A341906A09700781E15 /* BKRadar.m in Sources */ = {isa = PBXBuildFile; fileRef = 40715A331906A09700781E15 /* BKRadar.m */; };
 		40715A391906A1EF00781E15 /* BKRadarCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 40715A381906A1EF00781E15 /* BKRadarCircle.m */; };
@@ -56,6 +58,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		40094A031907EE7F000E1783 /* AngleGradientLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AngleGradientLayer.h; sourceTree = "<group>"; };
+		40094A041907EE7F000E1783 /* AngleGradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AngleGradientLayer.m; sourceTree = "<group>"; };
+		40094A061907EF85000E1783 /* BKRadarStandard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKRadarStandard.h; sourceTree = "<group>"; };
+		40094A071907EF85000E1783 /* BKRadarStandard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKRadarStandard.m; sourceTree = "<group>"; };
 		40700B0E1907BDF100213707 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		40715A321906A09700781E15 /* BKRadar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKRadar.h; sourceTree = "<group>"; };
 		40715A331906A09700781E15 /* BKRadar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKRadar.m; sourceTree = "<group>"; };
@@ -133,11 +139,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		40094A021907EE7F000E1783 /* AngleGradient */ = {
+			isa = PBXGroup;
+			children = (
+				40094A031907EE7F000E1783 /* AngleGradientLayer.h */,
+				40094A041907EE7F000E1783 /* AngleGradientLayer.m */,
+			);
+			path = AngleGradient;
+			sourceTree = "<group>";
+		};
 		40715A311906A09700781E15 /* BKRadar */ = {
 			isa = PBXGroup;
 			children = (
 				40715A321906A09700781E15 /* BKRadar.h */,
 				40715A331906A09700781E15 /* BKRadar.m */,
+				40094A061907EF85000E1783 /* BKRadarStandard.h */,
+				40094A071907EF85000E1783 /* BKRadarStandard.m */,
 				40715A371906A1EF00781E15 /* BKRadarCircle.h */,
 				40715A381906A1EF00781E15 /* BKRadarCircle.m */,
 			);
@@ -185,6 +202,7 @@
 				408CA2DD19057B2D00E1B7FE /* AppDelegate.m */,
 				408CA2E219057B2D00E1B7FE /* ViewController.h */,
 				408CA2E319057B2D00E1B7FE /* ViewController.m */,
+				40094A021907EE7F000E1783 /* AngleGradient */,
 				40715A311906A09700781E15 /* BKRadar */,
 				408CA30219057BC800E1B7FE /* RFduino */,
 				408CA2E519057B2D00E1B7FE /* Images.xcassets */,
@@ -381,6 +399,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				408CA30A19057BC800E1B7FE /* RfduinoManager.m in Sources */,
+				40094A051907EE7F000E1783 /* AngleGradientLayer.m in Sources */,
+				40094A081907EF85000E1783 /* BKRadarStandard.m in Sources */,
 				40715A341906A09700781E15 /* BKRadar.m in Sources */,
 				408CA2E419057B2D00E1B7FE /* ViewController.m in Sources */,
 				40715A391906A1EF00781E15 /* BKRadarCircle.m in Sources */,

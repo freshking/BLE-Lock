@@ -8,6 +8,7 @@
 
 #import "BKRadarCircle.h"
 
+
 @interface BKRadarCircle ()
 @property (assign, nonatomic) CGFloat lineWidth;
 @property (strong, nonatomic) UIColor *strokeColor;
@@ -62,26 +63,41 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
-    CGFloat a = MIN(self.frame.size.width, self.frame.size.height) - _lineWidth;
-    
-    //Get current context
-    CGContextRef mainContext = UIGraphicsGetCurrentContext();
-    
-    /** Fill circle **/
-    
-    CGContextAddArc(mainContext, self.frame.size.width/2.0f, self.frame.size.height/2.0f, a/2.0f, 0.f, (float)2.f*M_PI, true);
-    CGContextSetFillColorWithColor(mainContext, [_fillColor CGColor]);
-    CGContextFillPath(mainContext);
-    
-    /** Stroke circle **/
-    
-    //CGRect rectangle = CGRectMake(((a)/2.0f) + (_lineWidth/2.0f), ((a)/2.0f) + (_lineWidth/2.0f), a, a);
+
+     CGFloat a = MIN(self.frame.size.width, self.frame.size.height) - _lineWidth;
+     
+     //Get current context
+     CGContextRef mainContext = UIGraphicsGetCurrentContext();
     
     CGRect newRect = rect;
     newRect.origin.x = ((self.frame.size.width - a)/2.0f);
     newRect.origin.y = ((self.frame.size.height - a)/2.0f);
     newRect.size.width = a;
     newRect.size.height = a;
+     
+     // Fill circle
+    
+    const CGFloat *_components = CGColorGetComponents(_fillColor.CGColor);
+    CGFloat red     = _components[0];
+    CGFloat green = _components[1];
+    CGFloat blue   = _components[2];
+    CGFloat alpha = _components[3];
+    
+    CGColorSpaceRef baseSpace = CGColorSpaceCreateDeviceRGB();
+    CGFloat redBallColors[] = {
+        red,green,blue,0.5,
+        red,green,blue,alpha,
+    };
+    CGFloat glossLocations[] = {0.0, 1.0};
+    CGGradientRef ballGradient = CGGradientCreateWithColorComponents(baseSpace, redBallColors, glossLocations, 2);
+    CGPoint startPoint = self.center;
+    CGPoint endPoint = self.center;
+    CGContextDrawRadialGradient(mainContext, ballGradient, startPoint, 0, endPoint, a/2, 0);
+
+    
+    // Stroke circle
+    
+    
     
     CGContextAddEllipseInRect(mainContext, newRect);
     CGContextSetLineWidth(mainContext, _lineWidth);
@@ -90,7 +106,7 @@
     
     //Draw the path
     CGContextDrawPath(mainContext, kCGPathStroke);
-
+    
 }
 
 @end

@@ -63,6 +63,7 @@
     [self.view addSubview:_reset];
 
     _switchSelector = [[UISwitch alloc]initWithFrame:CGRectMake(self.view.frame.size.width- 65, 8, 60, 27)];
+    [_switchSelector setOnTintColor:[UIColor colorWithRed:0.255 green:0.522 blue:0.969 alpha:1.000]];
     [_switchSelector addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
     [_switchSelector setOn:[[[NSUserDefaults standardUserDefaults] objectForKey:SWITCH_STATE] boolValue] animated:NO];
     [self.navigationController.navigationBar addSubview:_switchSelector];
@@ -73,7 +74,8 @@
     _progress.progressTintColor = [UIColor colorWithRed:0.0 green:0.5 blue:0.0 alpha:1.0];
     [self.view addSubview:_progress];
     
-    _radar = [[BKRadar alloc]initWithFrame:CGRectMake(0, 0, 250, 250) radarStyle:RadarStyleCircle];
+    _radar = [[BKRadar alloc]initWithFrame:CGRectMake(0, 0, (self.view.frame.size.width * 0.8), (self.view.frame.size.height * 0.8)) radarStyle:RadarStyleCircle];
+    [_radar setDoubleTapToSwitch:YES];
     [_radar setCenter:self.view.center];
     [self.view addSubview:_radar];
     
@@ -96,9 +98,6 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    
-    
-    //[radar startAnimating];
     
 }
 

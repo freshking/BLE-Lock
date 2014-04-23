@@ -9,12 +9,15 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "BKRadar.h"
+#import "BKRadarStandard.h"
 #import "BKRadarCircle.h"
 
 @interface BKRadar ()
-@property (assign, nonatomic) RadarStyle radarStyle;
+@property (strong, nonatomic) BKRadarStandard *radarStandard;
 @property (strong, nonatomic) BKRadarCircle *radarCircle;
 @property (assign, nonatomic) BOOL animationCancelled;
+@property (assign, nonatomic) BOOL doubleTap;
+@property (strong, nonatomic) UITapGestureRecognizer *tap;
 @end
 
 @implementation BKRadar
@@ -28,6 +31,7 @@
         [self setBackgroundColor:[UIColor clearColor]];
         _radarStyle = RadarStyleCircle;
         _animationCancelled = YES;
+        _doubleTap = NO;
         [self setHidden:_animationCancelled];
     }
     return self;
@@ -42,15 +46,37 @@
         [self setBackgroundColor:[UIColor clearColor]];
         _radarStyle = style;
         _animationCancelled = YES;
+        _doubleTap = NO;
         [self setHidden:_animationCancelled];
     }
     return self;
+}
+
+- (void)setRadarStyle:(RadarStyle)radarStyle
+{
+    [self stopAnimating];
+    
+    _radarStyle = radarStyle;
+    
+    if (_radarStyle == RadarStyleCircle)
+    {
+        [_radarCircle setHidden:NO];
+        [_radarStandard setHidden:YES];
+    }
+    else if (_radarStyle == RadarStyleStandard)
+    {
+        [_radarCircle setHidden:YES];
+        [_radarStandard setHidden:NO];
+    }
+    
+    [self startAnimating];
 }
 
 - (void)startAnimating
 {
     _animationCancelled = NO;
     [self setHidden:_animationCancelled];
+    [self setUserInteractionEnabled:YES];
     
     if (_radarStyle == RadarStyleCircle)
     {
@@ -60,7 +86,6 @@
             [_radarCircle setAlpha:_radarCircle.alphaStart];
         }
         [self addSubview:_radarCircle];
-        
 
         [UIView animateWithDuration:2.0
                               delay:0.0
@@ -102,19 +127,23 @@
     }
     else if (_radarStyle == RadarStyleStandard)
     {
-        //_radarView = [[BKRadarStandard alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
-        /*
-        CABasicAnimation *appDeleteShakeAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
-        appDeleteShakeAnimation.autoreverses = YES;
-        appDeleteShakeAnimation.repeatDuration = HUGE_VALF;
-        appDeleteShakeAnimation.duration = 3.0;
-        appDeleteShakeAnimation.fromValue = [NSNumber numberWithFloat:-degreeToRadian(5)];
-        appDeleteShakeAnimation.toValue=[NSNumber numberWithFloat:degreeToRadian(5)];
-        [self.layer addAnimation:appDeleteShakeAnimation forKey:@"appDeleteShakeAnimation"];
-        */
+        
+        if (!_radarStandard)
+        {
+            _radarStandard = [[BKRadarStandard alloc]initWithFrame:self.bounds];
+            [_radarStandard addInnerCircle:YES withColor:[UIColor whiteColor] andSizeFactor:0.10];
+        }
+        [self addSubview:_radarStandard];
+        
+        CABasicAnimation * spin = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
+        spin.duration = 1;
+        spin.toValue = [NSNumber numberWithFloat:M_PI];
+        spin.cumulative = YES;
+        spin.repeatCount = MAXFLOAT;
+        [_radarStandard.layer addAnimation:spin forKey:@"spin"];
+        
     }
     
-    //[_radarView setCenter:self.center];
     
 }
 
@@ -122,16 +151,52 @@
 {
     _animationCancelled = YES;
     [self setHidden:_animationCancelled];
+    [self setUserInteractionEnabled:NO];
     
     [CATransaction begin];
-    [_radarCircle.layer removeAllAnimations];
+    if (_radarStyle == RadarStyleCircle)
+    {
+        [_radarCircle.layer removeAllAnimations];
+    }
+    else if (_radarStyle == RadarStyleStandard)
+    {
+        [_radarStandard.layer removeAllAnimations];
+    }
     [CATransaction commit];
 }
-
 
 - (BOOL)isAnimating
 {
     return !_animationCancelled;
+}
+
+- (void)setDoubleTapToSwitch:(BOOL)doubleTap
+{
+    _doubleTap = doubleTap;
+    
+    if (_doubleTap)
+    {
+        _tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(animationTapped)];
+        [_tap setNumberOfTapsRequired:2];
+        [self addGestureRecognizer:_tap];
+    }
+    else
+    {
+        [self removeGestureRecognizer:_tap];
+    }
+}
+
+- (void)animationTapped
+{
+    if (_radarStyle == RadarStyleCircle)
+    {
+        [self setRadarStyle:RadarStyleStandard];
+    }
+    else if (_radarStyle == RadarStyleStandard)
+    {
+        [self setRadarStyle:RadarStyleCircle];
+    }
+    
 }
 
 
