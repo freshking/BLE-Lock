@@ -12,8 +12,9 @@
 #import "RFduinoManager.h"
 #import "RFduino.h"
 
-#define UDID @"4CCC5638-0957-15E7-1EB4-96F0D9C61AB3"
+//#define UDID @"4CCC5638-0957-15E7-1EB4-96F0D9C61AB3"
 #define SWITCH_STATE @"com.Bastian-Kohlbauer.BLE-Lock.switchState"
+#define DEVICEIDKEY @"com.Bastian-Kohlbauer.BLE-Lock.deviceIDKey"
 
 @interface AppDelegate()
 
@@ -91,7 +92,11 @@
 {
     NSLog(@"didDiscoverRFduino");
     
-    if (!rfduino.outOfRange && [rfduino.UUID isEqualToString:UDID]) {
+    NSString *deviceID = [[NSUserDefaults standardUserDefaults] objectForKey:DEVICEIDKEY];
+    if (deviceID.length == 0) return;
+    
+    //if (!rfduino.outOfRange && [rfduino.UUID isEqualToString:UDID]) {
+    if (!rfduino.outOfRange && [rfduino.UUID isEqualToString:deviceID]) {
         [_rfduinoManager connectRFduino:rfduino];
     }
 }

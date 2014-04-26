@@ -16,8 +16,9 @@
 
 #define kDelegate ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 #define SWITCH_STATE @"com.Bastian-Kohlbauer.BLE-Lock.switchState"
+#define DEVICEIDKEY @"com.Bastian-Kohlbauer.BLE-Lock.deviceIDKey"
 
-@interface ViewController ()
+@interface ViewController () <UIAlertViewDelegate>
 @end
 
 
@@ -44,7 +45,8 @@
 
     if (![[NSUserDefaults standardUserDefaults] objectForKey:SWITCH_STATE])
     {
-        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:SWITCH_STATE];
+        NSLog(@"standardUserDefaults");
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO] forKey:SWITCH_STATE];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     
@@ -61,6 +63,19 @@
     [_reset addTarget:self action:@selector(buttonTouchDown:) forControlEvents:UIControlEventTouchDown];
     [_reset addTarget:self action:@selector(buttonTouchUpInside:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_reset];
+    
+    UIButton *idButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [idButton setFrame:CGRectMake(10, 8, 85, 30)];
+    [idButton setTitle:@"Device ID" forState:UIControlStateNormal];
+    [idButton setTitleColor:[UIColor colorWithRed:0.255 green:0.522 blue:0.969 alpha:1.000] forState:UIControlStateNormal];
+    [idButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+    [idButton.titleLabel setAdjustsFontSizeToFitWidth:YES];
+    [idButton.layer setMasksToBounds:YES];
+    [idButton.layer setCornerRadius:10.0f];
+    [idButton.layer setBorderWidth:1.0f];
+    [idButton.layer setBorderColor:[UIColor colorWithRed:0.255 green:0.522 blue:0.969 alpha:1.000].CGColor];
+    [idButton addTarget:self action:@selector(setDeviceID) forControlEvents:UIControlEventTouchUpInside];
+    [self.navigationController.navigationBar addSubview:idButton];
 
     _switchSelector = [[UISwitch alloc]initWithFrame:CGRectMake(self.view.frame.size.width- 65, 8, 60, 27)];
     [_switchSelector setOnTintColor:[UIColor colorWithRed:0.255 green:0.522 blue:0.969 alpha:1.000]];
@@ -109,6 +124,19 @@
 
 - (void)switchChanged:(id)sender
 {
+    
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:DEVICEIDKEY])
+    {
+        [_switchSelector setOn:NO];
+        [_radar stopAnimating];
+        [_statsLabel setHidden:NO];
+        [_progress setHidden:YES];
+        [_reset setHidden:YES];
+        [_statsLabel setText:@"Not Scanning"];
+        [self showMissingDeviceIDAlert];
+        return;
+    }
+    
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:_switchSelector.on] forKey:SWITCH_STATE];
     [[NSUserDefaults standardUserDefaults] synchronize];
 
@@ -136,6 +164,85 @@
         return;
     }
     
+}
+
+- (void)showMissingDeviceIDAlert
+{
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Missing Device ID"
+                                                   message:@"Please set a Device ID BLE-Lock should connect to."
+                                                  delegate:self
+                                         cancelButtonTitle:@"Cancel"
+                                         otherButtonTitles:@"Save", nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    
+    UITextField *textField = [alert textFieldAtIndex:0];
+    [textField setTextAlignment:NSTextAlignmentCenter];
+    [textField setPlaceholder:@"Decice ID"];
+    [textField setKeyboardType:UIKeyboardTypeDefault];
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    
+    if (buttonIndex == [alertView cancelButtonIndex]) return;
+    
+    UITextField *textField = [alertView textFieldAtIndex:0];
+        
+    if ([alertView.title isEqualToString:@"Missing Device ID"])
+    {
+        if (textField.text.length == 0)
+        {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Missing Device ID"
+                                                           message:@"Please set a Device ID with which BLE-Lock should connect to."
+                                                          delegate:self
+                                                 cancelButtonTitle:@"Cancel"
+                                                 otherButtonTitles:@"Save", nil];
+            alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+            
+            UITextField *textField = [alert textFieldAtIndex:0];
+            [textField setTextAlignment:NSTextAlignmentCenter];
+            [textField setPlaceholder:@"Decice ID"];
+            [textField setKeyboardType:UIKeyboardTypeDefault];
+            [alert show];
+        }
+        else
+        {
+            [[NSUserDefaults standardUserDefaults] setObject:textField.text forKey:DEVICEIDKEY];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+        
+        return;
+    }
+    
+    if ([alertView.title isEqualToString:@"Set Device ID"])
+    {
+        if (textField.text.length != 0)
+        {
+            [[NSUserDefaults standardUserDefaults] setObject:textField.text forKey:DEVICEIDKEY];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+        
+        return;
+
+    }
+
+}
+
+- (void)setDeviceID
+{
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Set Device ID"
+                                                   message:@"Type in a Device ID and click save."
+                                                  delegate:self
+                                         cancelButtonTitle:@"Cancel"
+                                         otherButtonTitles:@"Save", nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    
+    UITextField *textField = [alert textFieldAtIndex:0];
+    [textField setTextAlignment:NSTextAlignmentCenter];
+    [textField setText:[[NSUserDefaults standardUserDefaults] objectForKey:DEVICEIDKEY]];
+    [textField setKeyboardType:UIKeyboardTypeDefault];
+    [alert show];
 }
 
 - (void)sendByte:(uint8_t)byte
@@ -184,15 +291,12 @@
 }
 
 
-#pragma mark - Provate Methods
+#pragma mark - Private Methods
 
 - (void)calculateSignalStrength:(RFduino *)rfduino
 {
     if (!rfduino) return;
-    
-    
 
-    
     NSString *text = [[NSString alloc] initWithFormat:@"%@", rfduino.name];
     
     NSString *uuid = rfduino.UUID;
